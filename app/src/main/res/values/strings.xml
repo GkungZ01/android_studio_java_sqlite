@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">lab6_sqlite</string>
+    <string name="text_menu_home">Home</string>
+</resources>
