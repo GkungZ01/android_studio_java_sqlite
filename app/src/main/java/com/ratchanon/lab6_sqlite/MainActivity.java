@@ -1,8 +1,10 @@
 package com.ratchanon.lab6_sqlite;
 
 import android.annotation.SuppressLint;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     BottomNavigationView bottomNavigation;
     Fragment selectedFragment = null;
+    DatabaseHelper databaseHelper;
+    SQLiteDatabase mDb;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        databaseHelper = new DatabaseHelper(this);
+
+
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         loadFragment(new ViewFragment());
@@ -43,9 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
             if (itemId == R.id.item_1) {
                 tempSelectedFragment = new ViewFragment();
-            }else if(itemId == R.id.item_2) {
-                tempSelectedFragment = new AddFragment();
+            } else if (itemId == R.id.item_2) {
+                tempSelectedFragment = new InputFragment();
+            } else if (itemId == R.id.item_3) {
+                databaseHelper.importDatabase();
+                Toast.makeText(this, "Import database complete.", Toast.LENGTH_SHORT).show();
+                selectedFragment = new ViewFragment();
             }
+
+            if (tempSelectedFragment == null) return true;
 
             if (selectedFragment != null && Objects.equals(tempSelectedFragment, selectedFragment)) return true;
 
@@ -54,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+
     }
     // Method to load a fragment into the container
     private void loadFragment(Fragment fragment) {

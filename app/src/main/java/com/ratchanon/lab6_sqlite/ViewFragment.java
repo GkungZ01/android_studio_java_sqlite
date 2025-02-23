@@ -1,64 +1,98 @@
 package com.ratchanon.lab6_sqlite;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ViewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class ViewFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    RecyclerView rcv;
+    Cursor mCursor;
+    View view;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ViewFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentView.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ViewFragment newInstance(String param1, String param2) {
-        ViewFragment fragment = new ViewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    @SuppressLint("Recycle")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.fragment_view, container, false);
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+
+        SQLiteDatabase mDb = databaseHelper.getReadableDatabase();
+
+//        databaseHelper.logAllTables();
+
+        try {
+            mCursor = mDb.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME, null);
+        } catch (android.database.sqlite.SQLiteException e) {
+            databaseHelper.importDatabase();
+            mCursor = mDb.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME, null);
+        }
+
+
+        final ArrayList<CustomItem> items = new ArrayList<>();
+        mCursor.moveToFirst();
+        while (!mCursor.isAfterLast()) {
+            items.add(new CustomItem(
+                    "ชื่อ " +
+                    mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.COL_NAME)) + " "
+                            + mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.COL_LASTNAME)),
+                    "ชั้น "+ mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.COL_YEAR)),
+                    mCursor.getString(mCursor.getColumnIndex(DatabaseHelper.COL_ID))
+            ));
+            mCursor.moveToNext();
+        }
+
+
+        CustomAdapter adapter = new CustomAdapter(getContext(), items);
+        rcv = view.findViewById(R.id.list_view);
+        rcv.setAdapter(adapter);
+        rcv.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter.setOnClickListener(new CustomAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View item, int position) {
+                String str = items.get(position).ReceiveTxt1 + " - " + items.get(position).ReceiveTxt2;
+                Toast.makeText(view.getContext(), str, Toast.LENGTH_SHORT).show();
+
+                String id = items.get(position).ReceiveTxt3;
+                String name = items.get(position).ReceiveTxt1;
+                String lastname = items.get(position).ReceiveTxt2;
+                Log.i("TAG", "Click");
+
+
+//                Intent intent = new Intent(getApplicationContext(), Act_Edit.class);
+//
+//                intent.putExtra("ID", id);
+//                intent.putExtra("NAME", name);
+//                intent.putExtra("LASTNAME", lastname);
+//                intent.putExtra("YEAR", id);
+//                intent.putExtra("SEX", id);
+//                intent.putExtra("BOOK", id);
+//                intent.putExtra("SWIMMING", id);
+
+
+//                startActivity(intent);
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view, container, false);
+        return view;
     }
 }

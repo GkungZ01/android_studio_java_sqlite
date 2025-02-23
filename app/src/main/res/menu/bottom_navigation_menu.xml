@@ -3,14 +3,13 @@
     <item
         android:id="@+id/item_1"
         android:enabled="true"
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/baseline_content_paste_search_24"
         android:title="@string/text_menu_home"/>
     <item
         android:id="@+id/item_2"
         android:enabled="true"
         android:icon="@drawable/baseline_add_24"
-        android:title="@string/text_menu_add"
-        />
+        android:title="@string/text_menu_add"/>
     <item
         android:id="@+id/item_3"
         android:enabled="true"

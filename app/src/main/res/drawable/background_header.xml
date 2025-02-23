@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Create a file in res/drawable/border_bottom.xml -->
+<!-- Create a file in res/drawable/border_bottom.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="#e2e2e2" />
+        </shape>
+    </item>
+    <item android:bottom="2dp">
+        <shape>
+            <solid android:color="@color/white" /> <!-- Border color -->
+        </shape>
+    </item>
+</layer-list>

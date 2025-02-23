@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InputFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/textHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp"
+            android:text="Add Friend"
+            android:textSize="20sp"
+            android:background="@drawable/background_header"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Last Name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:hint="Year">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Sex"
+            android:textSize="16sp"
+            android:paddingVertical="4dp"
+            android:paddingLeft="5dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupSex"
+            android:checkedButton="@+id/radioButtonMale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:enabled="true"
+                android:text="Male"/>
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checked="false"
+                android:enabled="true"
+                android:text="Female"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Hobby"
+            android:textSize="16sp"
+            android:paddingVertical="4dp"
+            android:paddingLeft="5dp"/>
+        <CheckBox
+            android:id="@+id/checkBoxBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Book"/>
+        <CheckBox
+            android:id="@+id/checkBoxGaming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gaming"/>
+    </LinearLayout>
+</FrameLayout>
