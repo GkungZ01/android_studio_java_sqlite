@@ -9,7 +9,7 @@
 ---
 
 ## 🌟 Overview
-This project is a lightweight Android application built using **Android Studio** and **Java**, with **SQLite** as the local database. It was developed as a lab assignment for **[Course Name/Subject]** under the guidance of **[Professor's Name]**. The app showcases basic **CRUD operations** (Create, Read, Update, Delete) in a clean and user-friendly interface.
+This project is a lightweight Android application built using **Android Studio** and **Java**, with **SQLite** as the local database. It was developed as a lab assignment for **Mobile Application Development**. The app showcases basic **CRUD operations** (Create, Read, Update, Delete) in a clean and user-friendly interface.
 
 ---
 
