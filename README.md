@@ -54,14 +54,6 @@ This project is a lightweight Android application built using **Android Studio**
 
 ---
 
-## 📸 Screenshots
-*(Add your app screenshots below)*  
-| Main Screen               | Data Entry               |
-|---------------------------|--------------------------|
-| [Insert Image Link]       | [Insert Image Link]      |
-
----
-
 ## 💡 Notes
 - This is a lab project and may lack advanced features like error handling or performance optimization.
 - Feel free to enhance it for your own use!
