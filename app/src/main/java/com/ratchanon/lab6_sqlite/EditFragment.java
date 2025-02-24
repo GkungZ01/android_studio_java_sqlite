@@ -53,6 +53,7 @@ public class EditFragment extends Fragment {
     CheckBox checkBoxBook;
     CheckBox checkBoxGaming;
     MaterialButton buttonSubmit;
+    MaterialButton buttonDelete;
 
     DatabaseHelper databaseHelper;
 
@@ -60,7 +61,7 @@ public class EditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_input, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit, container, false);
 
         databaseHelper = new DatabaseHelper(getContext());
         SQLiteDatabase mDb = databaseHelper.getReadableDatabase();
@@ -75,6 +76,7 @@ public class EditFragment extends Fragment {
         checkBoxBook = view.findViewById(R.id.checkBoxBook);
         checkBoxGaming = view.findViewById(R.id.checkBoxGaming);
         buttonSubmit = view.findViewById(R.id.buttonSubmit);
+        buttonDelete = view.findViewById(R.id.buttonDelete);
 
         textViewHeader.setText(R.string.text_header_edit);
         buttonSubmit.setText(R.string.btn_edit);
@@ -119,8 +121,8 @@ public class EditFragment extends Fragment {
                 valueBook = checkBoxBook.isChecked() ? "1" : "0";
                 valueGaming = checkBoxGaming.isChecked() ? "1" : "0";
 
-                if(valueName.length() != 0 && valueLastName.length() != 0) {
-                    mDb.execSQL("UPDATE " + DatabaseHelper.TABLE_NAME  + " SET "
+                if (valueName.length() != 0 && valueLastName.length() != 0) {
+                    mDb.execSQL("UPDATE " + DatabaseHelper.TABLE_NAME + " SET "
                             + DatabaseHelper.COL_NAME + "='" + valueName + "', "
                             + DatabaseHelper.COL_LASTNAME + "='" + valueLastName + "', "
                             + DatabaseHelper.COL_YEAR + "='" + valueYear + "', "
@@ -139,6 +141,13 @@ public class EditFragment extends Fragment {
                             , Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+
+        buttonDelete.setOnClickListener(v -> {
+            mDb.execSQL("DELETE FROM " + DatabaseHelper.TABLE_NAME + " WHERE " + DatabaseHelper.COL_ID + " = " + valueID + ";");
+            Toast.makeText(view.getContext(), "ลบข้อมูลเพื่อนเรียบร้อยแล้ว"
+                    , Toast.LENGTH_SHORT).show();
+            mainAcrivity.bottomNavigation.setSelectedItemId(R.id.item_1);
         });
 
         return view;
