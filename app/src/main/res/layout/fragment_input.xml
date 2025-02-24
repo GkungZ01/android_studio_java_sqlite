@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InputFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="10dp"
-            android:text="Add Friend"
+            android:text="Name Header"
             android:textSize="20sp"
             android:background="@drawable/background_header"/>
 
@@ -26,6 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            app:boxStrokeColor="#06acde"
+            app:hintTextColor="#06acde"
             android:hint="Name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -40,6 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            app:boxStrokeColor="#06acde"
+            app:hintTextColor="#06acde"
             android:hint="Last Name">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -54,6 +59,8 @@
             android:id="@+id/textFieldYear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:boxStrokeColor="#06acde"
+            app:hintTextColor="#06acde"
             android:layout_marginTop="20dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:hint="Year">
@@ -85,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:enabled="true"
+                app:buttonTint="#06acde"
                 android:text="Male"/>
             <RadioButton
                 android:id="@+id/radioButtonFemale"
@@ -92,6 +100,7 @@
                 android:layout_height="match_parent"
                 android:checked="false"
                 android:enabled="true"
+                app:buttonTint="#06acde"
                 android:text="Female"/>
         </RadioGroup>
 
@@ -107,11 +116,26 @@
             android:id="@+id/checkBoxBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:buttonTint="#06acde"
             android:text="Book"/>
         <CheckBox
             android:id="@+id/checkBoxGaming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:buttonTint="#06acde"
             android:text="Gaming"/>
+
+        <Button
+            android:layout_marginTop="20dp"
+            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+            android:id="@+id/buttonSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#06acde"
+            android:textColor="#f0f0f0"
+            android:text="Name Button"
+            app:icon="@drawable/baseline_add_24"
+            app:iconTint="#f0f0f0"
+            />
     </LinearLayout>
 </FrameLayout>

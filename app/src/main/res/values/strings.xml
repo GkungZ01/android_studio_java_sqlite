@@ -3,6 +3,11 @@
     <string name="text_menu_home">View</string>
     <string name="text_menu_add">Add</string>
     <string name="text_menu_export">Export Database</string>
+    <string name="text_header_add">Add Friend</string>
+    <string name="text_header_edit">Edit Friend</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_edit">Edit</string>
+
     <string-array name="year">
         <item>1</item>
         <item>2</item>

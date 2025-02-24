@@ -2,18 +2,27 @@ package com.ratchanon.lab6_sqlite;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+import android.Manifest;
+
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.FileChannel;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper"; // Tag for logging
@@ -47,6 +56,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public Cursor getFriendById(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_ID + " = ?",new String[]{id});
+    }
+
     public void importDatabase() {
         @SuppressLint("SdCardPath") String url = "/data/data/" + this.context.getPackageName() + "/databases/friend_db";
         File f = new File(url);
@@ -75,6 +89,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        Toast.makeText(context, "Import database complete.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void exportDatabase(){
+        try {
+            File sd = context.getExternalFilesDir(null); // ใช้ app-specific directory
+            File data = Environment.getDataDirectory();
+
+            String currentDBPath = "/data/" + context.getPackageName() + "/databases/friend_db";
+            String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+            String backupDBPath = "friend_db_" + currentDateTimeString;
+            File currentDB = new File(data, currentDBPath);
+            File backupDB = new File(sd, backupDBPath);
+
+            FileChannel src = new FileInputStream(currentDB).getChannel();
+            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+            dst.transferFrom(src, 0, src.size());
+            src.close();
+            dst.close();
+            Toast.makeText(context, "Exported to: " + backupDB.toString(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(context, "Export failed: " + e.toString(), Toast.LENGTH_LONG).show();
+            Log.e(TAG, "Export error: ", e);
         }
     }
 }
