@@ -61,8 +61,7 @@ This project is a lightweight Android application built using **Android Studio**
 ---
 
 ## 🙌 Credits
-- **Developer**: [Your Name or GitHub: GkungZ01]  
-- **Supervisor**: [Professor's Name]  
+- **Developer**: [GitHub: GkungZ01]
 - **Submission Date**: February 24, 2025  
 
 ---
